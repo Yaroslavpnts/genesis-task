@@ -1,4 +1,5 @@
 import { instance } from "./axios";
+import { ICourse } from "./entity.types";
 
 export interface ICredentials {
   toke: string;
@@ -7,5 +8,8 @@ export interface ICredentials {
 export const api = {
   getToken() {
     return instance.get<ICredentials>("/auth/anonymous?platform=subscriptions");
+  },
+  getCourses() {
+    return instance.get<{ courses: ICourse[] }>("/core/preview-courses");
   },
 };

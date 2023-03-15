@@ -1,13 +1,13 @@
-import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { api } from "../api/apiMethods";
-import { getCookie, setCookie } from "../app/helpers/helperFunctions";
 import { CoursePage, MainPage, NotFoundPage } from "./routes";
 
 import { ReactComponent as Loader } from "../assets/loader.svg";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const AppRoutes = () => {
-  if (!getCookie("token")) {
+  const { hasToken } = useAuthContext();
+
+  if (!hasToken) {
     return <Loader />;
   }
 
