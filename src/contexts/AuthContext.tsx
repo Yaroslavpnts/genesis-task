@@ -29,7 +29,7 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
       try {
         const token = api.getToken();
 
-        setCookie("token", token);
+        setCookie("genesisToken", token);
         setHasToken(true);
       } catch (error) {
         setHasToken(false);
