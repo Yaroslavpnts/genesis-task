@@ -9,7 +9,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     if (config.headers) {
-      config.headers["Authorization"] = `Bearer ${getCookie("token")}`;
+      config.headers["Authorization"] = `Bearer ${getCookie("genesisToken")}`;
     }
 
     return config;
