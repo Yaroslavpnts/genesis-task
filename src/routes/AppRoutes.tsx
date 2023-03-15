@@ -7,20 +7,7 @@ import { CoursePage, MainPage, NotFoundPage } from "./routes";
 import { ReactComponent as Loader } from "../assets/loader.svg";
 
 const AppRoutes = () => {
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     try {
-  //       const token = api.getToken();
-
-  //       setCookie('token', token);
-  //     } catch (error) {}
-  //   };
-
-  //   getToken();
-  // }, []);
-
   if (!getCookie("token")) {
-    // return <img src={Loader} alt="" />;
     return <Loader />;
   }
 
