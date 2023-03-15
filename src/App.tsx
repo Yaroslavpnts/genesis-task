@@ -4,7 +4,7 @@ import AppRoutes from "./routes/AppRoutes";
 
 export const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/genesis-task">
       <AuthContextProvider>
         <AppRoutes />
       </AuthContextProvider>
