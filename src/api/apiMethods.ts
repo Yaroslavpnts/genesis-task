@@ -6,8 +6,6 @@ export interface ICredentials {
 
 export const api = {
   getToken() {
-    return instance.post<ICredentials>(
-      "/auth/anonymous?platform=subscriptions"
-    );
+    return instance.get<ICredentials>("/auth/anonymous?platform=subscriptions");
   },
 };
