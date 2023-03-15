@@ -1,8 +1,6 @@
 import {
-  Button,
-  Card,
   CardActionArea,
-  CardActions,
+  CardMedia,
   Chip,
   Rating,
   Stack,
@@ -10,6 +8,9 @@ import {
 } from "@mui/material";
 import React from "react";
 import { ICourse } from "../../api/entity.types";
+import { CardStyled } from "./course.styled";
+import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
+import lessonImg from "../../assets/lesson.png";
 
 interface ICourseProps {
   course: ICourse;
@@ -17,41 +18,47 @@ interface ICourseProps {
 
 export const Course: React.FC<ICourseProps> = ({ course }) => {
   return (
-    <Card>
+    <CardStyled>
       <CardActionArea>
-        <Typography variant="h3" component="h3">
+        <Typography variant="subtitle1" component="h3">
           {course.title}
         </Typography>
-        <img
-          src={`${course.previewImageLink}/cover.webp`}
-          alt="previewCourseImg"
+        <CardMedia
+          sx={{ height: 140 }}
+          image={`${course.previewImageLink}/cover.webp`}
+          title="previewCourseImg"
         />
-        <Typography variant="subtitle2" component="span">
-          {course.lessonsCount}
+        <Typography variant="subtitle2" component="div">
+          <img src={lessonImg} alt="" />
+          Lessons: {course.lessonsCount}
         </Typography>
-        <Stack>
-          {course.meta.skills.map((skill) => (
-            <Chip label={skill} variant="outlined" />
+        <Stack spacing={0.5}>
+          {course.meta.skills?.map((skill) => (
+            <Chip
+              label={skill}
+              variant="outlined"
+              icon={<EmojiObjectsIcon />}
+            />
           ))}
         </Stack>
-        <Rating name="read-only" value={course.rating} readOnly />
+        <Rating
+          name="read-only"
+          value={course.rating}
+          readOnly
+          precision={0.5}
+        />
         <img
-          src={`${course.meta.courseVideoPreview.link}/cover.webp}`}
+          src={`${course.meta?.courseVideoPreview?.link}/cover.webp}`}
           alt=""
         />
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Show more info
-        </Button>
-      </CardActions>
 
-      <video width="400" height="200" controls>
+      {/* <video width="400" height="200" controls>
         <source
-          src={course.meta.courseVideoPreview.link}
+          src={course.meta?.courseVideoPreview?.link}
           type="application/x-mpegURL"
         />
-      </video>
-    </Card>
+      </video> */}
+    </CardStyled>
   );
 };
