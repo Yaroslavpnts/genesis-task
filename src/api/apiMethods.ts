@@ -2,7 +2,7 @@ import { instance } from "./axios";
 import { ICourse } from "./entity.types";
 
 export interface ICredentials {
-  toke: string;
+  token: string;
 }
 
 export const api = {

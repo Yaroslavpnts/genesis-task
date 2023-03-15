@@ -27,7 +27,9 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
   useEffect(() => {
     const getToken = async () => {
       try {
-        const token = api.getToken();
+        const {
+          data: { token },
+        } = await api.getToken();
 
         setCookie("genesisToken", token);
         setHasToken(true);
