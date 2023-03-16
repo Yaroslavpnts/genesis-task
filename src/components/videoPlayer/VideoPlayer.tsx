@@ -24,5 +24,5 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
     }
   }, []);
 
-  return <video ref={videoRef} />;
+  return <video ref={videoRef} controls />;
 };
