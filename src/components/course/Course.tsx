@@ -1,3 +1,5 @@
+import React, { useRef, useEffect, useState } from "react";
+import Hls from "hls.js";
 import {
   CardActionArea,
   CardMedia,
@@ -6,7 +8,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { ICourse } from "../../api/entity.types";
 import { CardStyled } from "./course.styled";
 import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
@@ -18,17 +19,51 @@ interface ICourseProps {
 }
 
 export const Course: React.FC<ICourseProps> = ({ course }) => {
+  const [isShowVideo, setIsShowVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    //
+    // First check for native browser HLS support
+    //
+    if (videoRef.current?.canPlayType("application/vnd.apple.mpegurl")) {
+      videoRef.current.src = course.meta.courseVideoPreview.link;
+      //
+      // If no native HLS support, check if HLS.js is supported
+      //
+    } else if (Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource(course.meta.courseVideoPreview.link);
+      hls.attachMedia(videoRef.current!);
+    }
+  }, []);
+
+  const onMouseEnter = () => {
+    console.log("enter");
+    setIsShowVideo(true);
+    videoRef.current?.play();
+  };
+  const onMouseLeave = () => {
+    console.log("leave");
+    setIsShowVideo(false);
+    videoRef.current?.pause();
+  };
+
   return (
-    <CardStyled>
-      {/* <CardActionArea>
+    <CardStyled onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <CardActionArea>
         <Typography variant="subtitle1" component="h3">
           {course.title}
         </Typography>
-        <CardMedia
-          sx={{ height: 140 }}
-          image={`${course.previewImageLink}/cover.webp`}
-          title="previewCourseImg"
-        />
+        {isShowVideo ? (
+          <VideoPlayer height="140px" width="100%" />
+        ) : (
+          <CardMedia
+            sx={{ height: 140 }}
+            image={`${course.previewImageLink}/cover.webp`}
+            title="previewCourseImg"
+          />
+        )}
         <Typography variant="subtitle2" component="div">
           <img src={lessonImg} alt="" />
           Lessons: {course.lessonsCount}
@@ -52,8 +87,7 @@ export const Course: React.FC<ICourseProps> = ({ course }) => {
           src={`${course.meta?.courseVideoPreview?.link}/cover.webp}`}
           alt=""
         />
-      </CardActionArea> */}
-      <VideoPlayer videoSrc={course.meta.courseVideoPreview.link} />
+      </CardActionArea>
     </CardStyled>
   );
 };

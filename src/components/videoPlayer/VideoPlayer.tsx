@@ -1,28 +1,14 @@
-import Hls from "hls.js";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 interface VideoPlayerProps {
-  videoSrc: string;
+  width: string;
+  height: string;
 }
 
-export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    //
-    // First check for native browser HLS support
-    //
-    if (videoRef.current?.canPlayType("application/vnd.apple.mpegurl")) {
-      videoRef.current.src = videoSrc;
-      //
-      // If no native HLS support, check if HLS.js is supported
-      //
-    } else if (Hls.isSupported()) {
-      var hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(videoRef.current!);
-    }
-  }, []);
-
-  return <video ref={videoRef} controls />;
-};
+export const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
+  ({ height, width }, videoRef) => {
+    return (
+      <video ref={videoRef} controls width={width} height={height} muted />
+    );
+  }
+);

@@ -8,6 +8,7 @@ import { mock } from "./data";
 import { Pagination } from "@mui/lab";
 import { COURSES_PER_PAGE } from "../app/constants";
 import usePagination from "../hooks/usePaginationHook";
+import { VideoPlayer } from "../components/videoPlayer/VideoPlayer";
 
 const MainPage: React.FC = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
