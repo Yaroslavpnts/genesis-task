@@ -54,7 +54,7 @@ const MainPage: React.FC = () => {
         sx={{ margin: "unset" }}
       >
         {_data.currentData().map((course: ICourse) => (
-          <Course course={course} />
+          <Course key={course.id} course={course} />
         ))}
       </Masonry>
       <Pagination
