@@ -1,5 +1,5 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
-import { getCookie } from "../app/helpers/helperFunctions";
+import { getCookie } from "../app/helperFunctions";
 import { API_URL } from "../config";
 
 const instance = axios.create({

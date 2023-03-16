@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { api } from "../api/apiMethods";
-import { getCookie, setCookie } from "../app/helpers/helperFunctions";
+import { getCookie, setCookie } from "../app/helperFunctions";
 
 export interface UserContextInterface {
   hasToken: boolean;

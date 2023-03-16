@@ -11,6 +11,7 @@ import { ICourse } from "../../api/entity.types";
 import { CardStyled } from "./course.styled";
 import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import lessonImg from "../../assets/lesson.png";
+import { VideoPlayer } from "../videoPlayer/VideoPlayer";
 
 interface ICourseProps {
   course: ICourse;
@@ -19,7 +20,7 @@ interface ICourseProps {
 export const Course: React.FC<ICourseProps> = ({ course }) => {
   return (
     <CardStyled>
-      <CardActionArea>
+      {/* <CardActionArea>
         <Typography variant="subtitle1" component="h3">
           {course.title}
         </Typography>
@@ -51,14 +52,8 @@ export const Course: React.FC<ICourseProps> = ({ course }) => {
           src={`${course.meta?.courseVideoPreview?.link}/cover.webp}`}
           alt=""
         />
-      </CardActionArea>
-
-      {/* <video width="400" height="200" controls>
-        <source
-          src={course.meta?.courseVideoPreview?.link}
-          type="application/x-mpegURL"
-        />
-      </video> */}
+      </CardActionArea> */}
+      <VideoPlayer videoSrc={course.meta.courseVideoPreview.link} />
     </CardStyled>
   );
 };

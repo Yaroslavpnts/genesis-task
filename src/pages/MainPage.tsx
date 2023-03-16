@@ -5,9 +5,25 @@ import { ICourse } from "../api/entity.types";
 import { Course } from "../components/course/Course";
 import Masonry from "@mui/lab/Masonry";
 import { mock } from "./data";
+import { Pagination } from "@mui/lab";
+import { COURSES_PER_PAGE } from "../app/constants";
+import usePagination from "../hooks/usePaginationHook";
 
 const MainPage: React.FC = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
+  const [page, setPage] = useState(1);
+
+  // const _data = usePagination(courses, COURSES_PER_PAGE);
+  const _data = usePagination(mock, COURSES_PER_PAGE);
+
+  const handleChangePage = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setPage(page);
+    _data.jump(page);
+    window.scrollTo(0, 0);
+  };
 
   // useEffect(() => {
   //   const fetchCourses = async () => {
@@ -16,7 +32,7 @@ const MainPage: React.FC = () => {
   //         data: { courses },
   //       } = await api.getCourses();
 
-  //       setCourses(courses);
+  //       setCourses(mock);
   //     } catch (error) {
   //       console.log(error);
   //       setCourses([]);
@@ -37,10 +53,16 @@ const MainPage: React.FC = () => {
         spacing={3}
         sx={{ margin: "unset" }}
       >
-        {mock.map((course: ICourse) => (
+        {_data.currentData().map((course: ICourse) => (
           <Course course={course} />
         ))}
       </Masonry>
+      <Pagination
+        count={Math.ceil(mock.length / COURSES_PER_PAGE)}
+        page={page}
+        variant="outlined"
+        onChange={handleChangePage}
+      />
     </Container>
   );
 };

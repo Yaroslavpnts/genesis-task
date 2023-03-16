@@ -1,3 +1,5 @@
+import { ICourse } from "../api/entity.types";
+
 export const mock = [
   {
     id: "352be3c6-848b-4c19-9e7d-54fe68fef183",
@@ -837,4 +839,4 @@ export const mock = [
       },
     },
   },
-] as any;
+] as ICourse[];

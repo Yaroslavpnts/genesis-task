@@ -55,5 +55,9 @@ export const CardStyled = styled(Card)`
     margin: 5px 0;
     display: block;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
 `;
