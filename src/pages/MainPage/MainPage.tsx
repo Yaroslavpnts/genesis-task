@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Typography } from "@mui/material";
-import { api } from "../api/apiMethods";
-import { ICourse } from "../api/entity.types";
-import { Course } from "../components/course/Course";
+import { Container, Typography } from "@mui/material";
+import { api } from "../../api/apiMethods";
+import { ICourse } from "../../api/entity.types";
+import { Course } from "../../components/course/Course";
 import Masonry from "@mui/lab/Masonry";
-import { mock } from "./data";
+import { mock } from "../data";
 import { Pagination } from "@mui/lab";
-import { COURSES_PER_PAGE } from "../app/constants";
-import usePagination from "../hooks/usePaginationHook";
-import { VideoPlayer } from "../components/videoPlayer/VideoPlayer";
+import { COURSES_PER_PAGE } from "../../app/constants";
+import usePagination from "../../hooks/usePaginationHook";
+import { ContainerStyled } from "./mainPage.styled";
 
 const MainPage: React.FC = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
@@ -44,7 +44,7 @@ const MainPage: React.FC = () => {
   // }, []);
 
   return (
-    <Container sx={{ textAlign: "center" }}>
+    <ContainerStyled >
       <Typography variant="h5" component="h2" sx={{ my: 2 }}>
         Available courses
       </Typography>
@@ -64,7 +64,7 @@ const MainPage: React.FC = () => {
         variant="outlined"
         onChange={handleChangePage}
       />
-    </Container>
+    </ContainerStyled>
   );
 };
 export default MainPage;

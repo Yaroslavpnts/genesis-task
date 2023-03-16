@@ -32,21 +32,23 @@ export const Course: React.FC<ICourseProps> = ({ course }) => {
       // If no native HLS support, check if HLS.js is supported
       //
     } else if (Hls.isSupported()) {
-      var hls = new Hls();
+      const hls = new Hls();
       hls.loadSource(course.meta.courseVideoPreview.link);
       hls.attachMedia(videoRef.current!);
+
+      videoRef.current?.play();
+
+      return () => {
+        videoRef.current?.pause();
+      };
     }
-  }, []);
+  }, [isShowVideo]);
 
   const onMouseEnter = () => {
-    console.log("enter");
     setIsShowVideo(true);
-    videoRef.current?.play();
   };
   const onMouseLeave = () => {
-    console.log("leave");
     setIsShowVideo(false);
-    videoRef.current?.pause();
   };
 
   return (
@@ -56,7 +58,7 @@ export const Course: React.FC<ICourseProps> = ({ course }) => {
           {course.title}
         </Typography>
         {isShowVideo ? (
-          <VideoPlayer height="140px" width="100%" />
+          <VideoPlayer height="140px" width="100%" ref={videoRef} />
         ) : (
           <CardMedia
             sx={{ height: 140 }}
@@ -64,6 +66,15 @@ export const Course: React.FC<ICourseProps> = ({ course }) => {
             title="previewCourseImg"
           />
         )}
+        {/* {isShowVideo ? (
+          <CardMedia
+            sx={{ height: 140 }}
+            image={`${course.previewImageLink}/cover.webp`}
+            title="previewCourseImg"
+          />
+        ) : (
+          <VideoPlayer height="140px" width="100%" ref={videoRef} />
+        )} */}
         <Typography variant="subtitle2" component="div">
           <img src={lessonImg} alt="" />
           Lessons: {course.lessonsCount}
