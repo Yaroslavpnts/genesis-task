@@ -20,3 +20,20 @@ export interface ICourse {
     };
   };
 }
+
+export interface ILesson {
+  id: string;
+  title: string;
+  duration: number;
+  order: number;
+  type: string;
+  status: string;
+  link: string;
+  previewImageLink: string;
+  meta: null;
+}
+
+export interface ICourseDetails extends ICourse {
+  lessons: ILesson[];
+  containsLockedLessons: boolean;
+}

@@ -1,5 +1,5 @@
 import { instance } from "./axios";
-import { ICourse } from "./entity.types";
+import { ICourse, ICourseDetails } from "./entity.types";
 
 export interface ICredentials {
   token: string;
@@ -11,5 +11,8 @@ export const api = {
   },
   getCourses() {
     return instance.get<{ courses: ICourse[] }>("/core/preview-courses");
+  },
+  getCurrentCourse(id: string) {
+    return instance.get<ICourseDetails>(`/core/preview-courses/${id}`);
   },
 };
