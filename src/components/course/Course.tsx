@@ -1,19 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import Hls from "hls.js";
-import {
-  CardActionArea,
-  CardMedia,
-  Chip,
-  Rating,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { CardActionArea, Chip, Rating, Stack, Typography } from "@mui/material";
 import { ICourse } from "../../api/entity.types";
 import { CardStyled } from "./course.styled";
 import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import lessonImg from "../../assets/lesson.png";
 import { VideoPlayer } from "../videoPlayer/VideoPlayer";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useHlsVideoHook } from "../../hooks/useHlsVideoHook";
 
 interface ICourseProps {
@@ -25,11 +17,17 @@ export const Course: React.FC<ICourseProps> = ({ course }) => {
     course.meta.courseVideoPreview?.link || ""
   );
 
+  const navigate = useNavigate();
+
   const onMouseEnter = () => {
     setIsShowVideo(true);
   };
   const onMouseLeave = () => {
     setIsShowVideo(false);
+  };
+
+  const handleCardClick = () => {
+    navigate(`/${course.id}`);
   };
 
   let mediaContent;
@@ -48,69 +46,42 @@ export const Course: React.FC<ICourseProps> = ({ course }) => {
     );
   }
 
-  // if (!isShowVideo) {
-  //   mediaContent = (
-  //     <img
-  //       src={`${course.previewImageLink}/cover.webp`}
-  //       alt="previewCourseImg"
-  //       style={{ height: "140px" }}
-  //     />
-  //   );
-  // } else if (!isError) {
-  //   mediaContent = (
-  //     <VideoPlayer height="140px" width="318px" ref={videoRef} muted={true} />
-  //   );
-  // } else {
-  // }
-
   return (
-    <CardStyled onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <Link to={course.id}>
-        <CardActionArea>
-          <Typography variant="subtitle1" component="h3">
-            {course.title}
-          </Typography>
-          {/* {isShowVideo ? (
-            <VideoPlayer
-              height="140px"
-              width="318px"
-              ref={videoRef}
-              muted={true}
+    <CardStyled
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={handleCardClick}
+    >
+      <CardActionArea>
+        <Typography variant="subtitle1" component="h3">
+          {course.title}
+        </Typography>
+        {mediaContent}
+        <Typography variant="subtitle2" component="div">
+          <img src={lessonImg} alt="" />
+          Lessons: {course.lessonsCount}
+        </Typography>
+        <Stack spacing={0.5}>
+          {course.meta.skills?.map((skill) => (
+            <Chip
+              key={skill}
+              label={skill}
+              variant="outlined"
+              icon={<EmojiObjectsIcon />}
             />
-          ) : (
-            <img
-              src={`${course.previewImageLink}/cover.webp`}
-              alt="previewCourseImg"
-              style={{ height: "140px" }}
-            />
-          )} */}
-          {mediaContent}
-          <Typography variant="subtitle2" component="div">
-            <img src={lessonImg} alt="" />
-            Lessons: {course.lessonsCount}
-          </Typography>
-          <Stack spacing={0.5}>
-            {course.meta.skills?.map((skill) => (
-              <Chip
-                key={skill}
-                label={skill}
-                variant="outlined"
-                icon={<EmojiObjectsIcon />}
-              />
-            ))}
-          </Stack>
-          <Rating
-            name="read-only"
-            value={course.rating}
-            readOnly
-            precision={0.5}
-          />
-          <img
-            src={`${course.meta?.courseVideoPreview?.link}/cover.webp}`}
-            alt=""
-          />
-        </CardActionArea>
-      </Link>
+          ))}
+        </Stack>
+        <Rating
+          name="read-only"
+          value={course.rating}
+          readOnly
+          precision={0.5}
+        />
+        <img
+          src={`${course.meta?.courseVideoPreview?.link}/cover.webp}`}
+          alt=""
+        />
+      </CardActionArea>
     </CardStyled>
   );
 };

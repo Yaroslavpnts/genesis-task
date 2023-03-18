@@ -3,6 +3,7 @@ import {
   LessonStyled,
   LessonTitleStyled,
   LockedBlockStyled,
+  VideoControlsDescription,
 } from "./lesson.styled";
 import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
@@ -73,6 +74,13 @@ export const Lesson: React.FC<ILessonProps> = ({ lesson }) => {
           <LessonTitleStyled>
             {lesson.order}. {lesson.title}
           </LessonTitleStyled>
+          <VideoControlsDescription>
+            <Typography variant="h5" component="p">
+              * you can change video playback speed:
+            </Typography>
+            <Typography component="span">- to increase - Alt + ↑</Typography>
+            <Typography component="span">- to decrease - Alt + ↓</Typography>
+          </VideoControlsDescription>
         </Box>
       </CustomModal>
     </LessonStyled>

@@ -19,8 +19,12 @@ export const useHlsVideoHook = (videoLink: string) => {
       //
     } else if (Hls.isSupported() && videoLink) {
       const hls = new Hls();
-      hls.loadSource(videoLink);
+
       hls.attachMedia(video!);
+
+      hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+        hls.loadSource(videoLink);
+      });
 
       const isPlaying =
         video?.currentTime &&

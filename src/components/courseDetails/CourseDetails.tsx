@@ -25,7 +25,6 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link } from "react-router-dom";
 import { useHlsVideoHook } from "../../hooks/useHlsVideoHook";
 
 interface ICourseDetailsProps {
@@ -35,9 +34,9 @@ interface ICourseDetailsProps {
 export const CourseDetails: React.FC<ICourseDetailsProps> = ({
   courseDetails,
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useHlsVideoHook(courseDetails?.meta.courseVideoPreview?.link || "");
+  const { videoRef } = useHlsVideoHook(
+    courseDetails?.meta.courseVideoPreview?.link || ""
+  );
 
   const listItemStatus =
     courseDetails?.status === "launched" ? (
@@ -150,7 +149,7 @@ export const CourseDetails: React.FC<ICourseDetailsProps> = ({
           <VideoPlayer
             ref={videoRef}
             height="240px"
-            width="450px"
+            width="100%"
             muted={false}
           />
         </Grid>

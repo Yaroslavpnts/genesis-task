@@ -1,4 +1,5 @@
 import { styled } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ModalProps {
   active: boolean;
@@ -35,19 +36,19 @@ export const ModalContentStyled = styled("div")<ModalProps>`
   transform: 0.3s;
   max-height: 600px;
   position: relative;
+`;
 
-  svg {
-    position: absolute;
-    right: 3px;
-    top: 3px;
-    cursor: pointer;
-    max-width: 700px;
-    max-height: 480px;
-    object-fit: cover;
+export const CloseIconStyled = styled(CloseIcon)`
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  cursor: pointer;
+  max-width: 700px;
+  max-height: 480px;
+  object-fit: cover;
 
-    @media screen and (max-width: 700px) {
-      max-width: 500px;
-      max-height: 280px;
-    }
+  @media screen and (max-width: 700px) {
+    max-width: 500px;
+    max-height: 280px;
   }
 `;

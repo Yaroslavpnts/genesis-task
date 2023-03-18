@@ -1,6 +1,9 @@
 import React from "react";
-import { ModalContainerStyled, ModalContentStyled } from "./CustomModal.styled";
-import CloseIcon from "@mui/icons-material/Close";
+import {
+  CloseIconStyled,
+  ModalContainerStyled,
+  ModalContentStyled,
+} from "./CustomModal.styled";
 
 interface CustomModalProps {
   active: boolean;
@@ -17,7 +20,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
     <ModalContainerStyled onClick={handleClose} active={active}>
       <ModalContentStyled onClick={(e) => e.stopPropagation()} active={active}>
         {children}
-        <CloseIcon onClick={handleClose} />
+        <CloseIconStyled onClick={handleClose} />
       </ModalContentStyled>
     </ModalContainerStyled>
   );

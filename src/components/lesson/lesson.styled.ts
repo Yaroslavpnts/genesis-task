@@ -36,4 +36,18 @@ export const LockedBlockStyled = styled(Box)`
 export const LessonTitleStyled = styled(Typography)`
   font-weight: 700;
   margin-top: 5px;
+  margin-bottom: 10px;
+`;
+
+export const VideoControlsDescription = styled(Box)`
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 12px;
+  }
+
+  span {
+    font-size: 11px;
+  }
 `;
