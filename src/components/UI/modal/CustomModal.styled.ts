@@ -36,6 +36,15 @@ export const ModalContentStyled = styled("div")<ModalProps>`
   transform: 0.3s;
   max-height: 600px;
   position: relative;
+  max-width: 90%;
+
+  @media screen and (max-width: 600px) {
+    width: 300px;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 250px;
+  }
 `;
 
 export const CloseIconStyled = styled(CloseIcon)`
@@ -43,12 +52,4 @@ export const CloseIconStyled = styled(CloseIcon)`
   right: 3px;
   top: 3px;
   cursor: pointer;
-  max-width: 700px;
-  max-height: 480px;
-  object-fit: cover;
-
-  @media screen and (max-width: 700px) {
-    max-width: 500px;
-    max-height: 280px;
-  }
 `;

@@ -1,7 +1,7 @@
 import React, { KeyboardEvent, useMemo } from "react";
 import { VideoStyled } from "./videoPlayer.styled";
 import PictureInPictureAltIcon from "@mui/icons-material/PictureInPictureAlt";
-import { useWindowEvent } from "../../hooks/useWindowEvent";
+import { useElementEvent } from "../../hooks/useElementEvent";
 
 interface VideoPlayerProps {
   width: string;
@@ -50,7 +50,11 @@ export const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
       }
     };
 
-    useWindowEvent({ event: "keydown", handler: controlPlayBackSpeedHandler });
+    useElementEvent({
+      element: document.body,
+      event: "keydown",
+      handler: controlPlayBackSpeedHandler,
+    });
 
     return (
       <VideoStyled>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  DoneIconStyled,
   LessonStyled,
   LessonTitleStyled,
-  LockedBlockStyled,
+  StatusdBlockStyled,
   VideoControlsDescription,
 } from "./lesson.styled";
 import Box from "@mui/material/Box";
@@ -13,6 +14,8 @@ import { ILesson } from "../../api/entity.types";
 import { VideoPlayer } from "../videoPlayer/VideoPlayer";
 import { useHlsVideoHook } from "../../hooks/useHlsVideoHook";
 import CustomModal from "../UI/modal/CustomModal";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useElementEvent } from "../../hooks/useElementEvent";
 import LockIcon from "@mui/icons-material/Lock";
 
 interface ILessonProps {
@@ -29,6 +32,38 @@ export const Lesson: React.FC<ILessonProps> = ({ lesson }) => {
     lesson.link
   );
 
+  const [videoTimeWatched, setVideoTimeWatched] = useLocalStorage(
+    `${lesson.id}_numberOfSecondsVideoViewed`,
+    0
+  );
+
+  const [videoComplete, setVideoComplete] = useLocalStorage(
+    `${lesson.id}_isVideoComplete`,
+    false
+  );
+
+  const videoTimeUpdateHandler = () => {
+    const currentTime = videoRef.current?.currentTime;
+
+    if (
+      videoRef.current &&
+      !videoRef.current.paused &&
+      currentTime! > videoTimeWatched
+    ) {
+      setVideoTimeWatched(Math.floor(currentTime || 0));
+    }
+
+    if (Math.floor(currentTime!) === lesson.duration) {
+      setVideoComplete(true);
+    }
+  };
+
+  useElementEvent({
+    element: videoRef.current!,
+    event: "timeupdate",
+    handler: videoTimeUpdateHandler,
+  });
+
   const handleOpenVideo = () => {
     if (lesson.status === LessonsTypes.UNLOCKED) {
       setIsShowVideo(true);
@@ -36,6 +71,7 @@ export const Lesson: React.FC<ILessonProps> = ({ lesson }) => {
   };
 
   const handleCloseVideo = () => {
+    videoRef.current?.pause();
     setIsShowVideo(false);
   };
 
@@ -58,15 +94,20 @@ export const Lesson: React.FC<ILessonProps> = ({ lesson }) => {
           {`Duration: ${lesson.duration}`}
         </Typography>
         {lesson.status === LessonsTypes.LOCKED && (
-          <LockedBlockStyled>
+          <StatusdBlockStyled>
             <LockIcon /> Locked
-          </LockedBlockStyled>
+          </StatusdBlockStyled>
+        )}
+        {videoComplete && (
+          <StatusdBlockStyled>
+            <DoneIconStyled /> Complete
+          </StatusdBlockStyled>
         )}
       </CardContent>
       <CustomModal active={isShowVideo} handleClose={handleCloseVideo}>
         <Box>
           <VideoPlayer
-            height="400px"
+            height="250px"
             width="100%"
             muted={false}
             ref={videoRef}

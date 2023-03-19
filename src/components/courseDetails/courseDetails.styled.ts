@@ -8,6 +8,17 @@ export const BoxStyled = styled(Box)`
   .MuiGrid-container {
     justify-content: space-around;
     margin-bottom: 20px;
+
+    @media screen and (max-width: 700px) {
+      padding: 30px;
+      flex-direction: column;
+      gap: 30px;
+
+      > div {
+        max-width: 100%;
+        flex-grow: 1;
+      }
+    }
   }
 
   .MuiChip-root {
@@ -32,15 +43,35 @@ export const BoxStyled = styled(Box)`
 
     .MuiTypography-root {
       font-size: 15px;
+
+      @media screen and (max-width: 600px) {
+        font-size: 13px;
+      }
+
+      @media screen and (max-width: 600px) {
+        font-size: 12px;
+      }
     }
   }
 
   h2 {
     margin-bottom: 15px;
+
+    @media screen and (max-width: 700px) {
+      font-size: 18px;
+    }
+
+    @media screen and (max-width: 500px) {
+      font-size: 16px;
+    }
   }
 
   p {
     line-height: 1.5;
+
+    @media screen and (max-width: 700px) {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -53,4 +84,8 @@ export const PreviousPageLink = styled(Link)`
   position: absolute;
   left: -10px;
   top: -10px;
+
+  @media screen and (max-width: 600px) {
+    left: 0;
+  }
 `;

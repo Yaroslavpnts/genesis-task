@@ -1,4 +1,5 @@
 import { styled, Card, Box, Typography } from "@mui/material";
+import DoneIcon from "@mui/icons-material/Done";
 
 export const LessonStyled = styled(Card)<{ islocked: number }>`
   flex-grow: 1;
@@ -11,14 +12,30 @@ export const LessonStyled = styled(Card)<{ islocked: number }>`
 
   @media screen and (max-width: 900px) {
     max-width: 300px;
+
+    > .MuiTypography-h5 {
+      font-size: 20px;
+    }
   }
 
   @media screen and (max-width: 800px) {
     max-width: 250px;
   }
 
-  @media screen and (max-width: 800px) {
-    max-width: 200px;
+  @media screen and (max-width: 700px) {
+    max-width: 400px;
+
+    > .MuiTypography-h5 {
+      font-size: 18px;
+    }
+
+    .MuiCardContent-root {
+      padding: 8px;
+    }
+
+    .MuiBox-root {
+      margin-top: 3px;
+    }
   }
 
   @media screen and (max-width: 600px) {
@@ -26,11 +43,15 @@ export const LessonStyled = styled(Card)<{ islocked: number }>`
   }
 `;
 
-export const LockedBlockStyled = styled(Box)`
+export const StatusdBlockStyled = styled(Box)`
   display: flex;
   align-items: center;
   gap: 5px;
   margin-top: 10px;
+`;
+
+export const DoneIconStyled = styled(DoneIcon)`
+  color: green;
 `;
 
 export const LessonTitleStyled = styled(Typography)`
