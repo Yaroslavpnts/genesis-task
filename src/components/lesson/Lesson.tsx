@@ -58,10 +58,22 @@ export const Lesson: React.FC<ILessonProps> = ({ lesson }) => {
     }
   };
 
+  const setCurrentProgressVideoTime = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = videoTimeWatched;
+    }
+  };
+
   useElementEvent({
     element: videoRef.current!,
     event: "timeupdate",
     handler: videoTimeUpdateHandler,
+  });
+
+  useElementEvent({
+    element: videoRef.current!,
+    event: "loadeddata",
+    handler: setCurrentProgressVideoTime,
   });
 
   const handleOpenVideo = () => {
