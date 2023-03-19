@@ -38,8 +38,6 @@ export const useHlsVideoHook = (videoLink: string) => {
       }
 
       hls.on(Hls.Events.ERROR, function (event, data) {
-        console.log(event, data);
-
         if (Hls.ErrorDetails.MANIFEST_LOAD_ERROR) {
           setIsError(true);
         }

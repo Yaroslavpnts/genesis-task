@@ -25,7 +25,6 @@ export const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
           }
         }
       };
-      // };
     }, [videoRef]);
 
     const controlPlayBackSpeedHandler = (event: Event) => {

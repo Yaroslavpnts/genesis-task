@@ -4,7 +4,6 @@ import { api } from "../api/apiMethods";
 import { ICourse } from "../api/entity.types";
 import { Course } from "../components/course/Course";
 import Masonry from "@mui/lab/Masonry";
-import { mock } from "./data";
 import { Pagination, Skeleton } from "@mui/lab";
 import { COURSES_PER_PAGE } from "../app/constants";
 import { usePagination } from "../hooks/usePaginationHook";
@@ -15,7 +14,6 @@ const MainPage: React.FC = () => {
   const [page, setPage] = useState(1);
 
   const _data = usePagination(courses, COURSES_PER_PAGE);
-  // const _data = usePagination(courses, 40);
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
@@ -32,8 +30,6 @@ const MainPage: React.FC = () => {
         const {
           data: { courses },
         } = await api.getCourses();
-
-        // setCourses(mock);
         setCourses(courses);
       } catch (error) {
         setCourses([]);
@@ -70,7 +66,7 @@ const MainPage: React.FC = () => {
             ))}
       </Masonry>
       <Pagination
-        count={Math.ceil(mock.length / COURSES_PER_PAGE)}
+        count={Math.ceil(courses.length / COURSES_PER_PAGE)}
         page={page}
         variant="outlined"
         onChange={handleChangePage}

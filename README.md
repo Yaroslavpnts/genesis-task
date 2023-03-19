@@ -1,1 +1,1 @@
-[Link to project](https://yaroslavpnts.github.io/nasa_project/)
+[Link to project](https://yaroslavpnts.github.io/genesis-task/)

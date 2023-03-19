@@ -9,7 +9,6 @@ function getStorageValue(key: string, defaultValue: any) {
       value = JSON.parse(saved);
     }
   } catch (error) {
-    console.log(error);
     value = defaultValue;
   }
 
